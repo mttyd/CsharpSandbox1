@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace CsharpSandbox_Console
 {
@@ -13,6 +14,11 @@ namespace CsharpSandbox_Console
             foreach (var line in lines)
             {
                 Console.WriteLine(line);
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    var pause = Task.Delay(200);
+                    pause.Wait();
+                }
             }
             Console.Read();
         }
@@ -23,7 +29,19 @@ namespace CsharpSandbox_Console
             {
                 while ((line = reader.ReadLine()) != null)
                 {
-                    yield return line;
+                    var words = line.Split(' ');
+                    var lineLength = 0;
+                    foreach (var word in words)
+                    {
+                        yield return word + " ";
+                        lineLength += word.Length + 1;
+                        if (lineLength >70)
+                        {
+                            yield return Environment.NewLine;
+                            lineLength = 0;
+                        }
+                    }
+                    yield return Environment.NewLine;
                 }                     
             }
         }
