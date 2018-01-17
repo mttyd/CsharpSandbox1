@@ -18,6 +18,7 @@ namespace Rest_Client
                 Console.WriteLine(repo.GitHubHomeUrl);
                 Console.WriteLine(repo.Homepage);
                 Console.WriteLine(repo.Watchers);
+                Console.WriteLine(repo.LastPush);
                 Console.WriteLine();
             }
             Console.Read();

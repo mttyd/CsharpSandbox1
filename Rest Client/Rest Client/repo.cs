@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Globalization;
 
 namespace Rest_Client
 {[DataContract(Name="repo")]
@@ -19,6 +20,18 @@ namespace Rest_Client
 
         [DataMember(Name = "watchers")]
         public int Watchers { get; set; }
+
+        [DataMember(Name = "pushed_at")]
+        private string JsonDate { get; set; }
+
+        [IgnoreDataMember]
+        public DateTime LastPush
+        {
+            get
+            {
+                return DateTime.ParseExact(JsonDate, "yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
+            }
+        }
     }
 }
 
